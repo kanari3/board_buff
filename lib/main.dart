@@ -1,8 +1,8 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:board_buff/page1.dart';
-import 'package:board_buff/page1_bloc.dart';
-import 'package:board_buff/page2.dart';
-import 'package:board_buff/page2_bloc.dart';
+import 'package:board_buff/ui/page1.dart';
+import 'package:board_buff/model/bloc/page1_bloc.dart';
+import 'package:board_buff/ui/page2.dart';
+import 'package:board_buff/model/bloc/page2_bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
