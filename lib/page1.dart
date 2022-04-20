@@ -1,3 +1,5 @@
+import 'package:bloc_provider/bloc_provider.dart';
+import 'package:board_buff/page1_bloc.dart';
 import 'package:flutter/material.dart';
 
 class Page1 extends StatefulWidget {
@@ -9,8 +11,12 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
 
+  late Page1Bloc bloc;
+
   @override
   Widget build(BuildContext context) {
+
+    bloc = BlocProvider.of<Page1Bloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +27,7 @@ class _Page1State extends State<Page1> {
 
         },
       ),
-      body: const Text("こんてんつ"),
+      body: Text("かうんと： ${bloc.countValue}"),
     );
   }
 }

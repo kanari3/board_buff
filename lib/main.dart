@@ -1,4 +1,6 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:board_buff/page1.dart';
+import 'package:board_buff/page1_bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -60,7 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const Page1(),
+                    builder: (context) => BlocProvider(
+                      creator: (context, _) => Page1Bloc(),
+                      child: const Page1(),
+                    ),
                   ),
                 );
               },

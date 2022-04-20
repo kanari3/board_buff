@@ -3,13 +3,15 @@ import 'package:rxdart/rxdart.dart';
 
 class Page1Bloc extends Bloc {
 
-  final count = BehaviorSubject<int>.seeded(0);
+  final _count = BehaviorSubject<int>.seeded(0);
 
-  Stream<int> get countStream => count.stream;
+  Stream<int> get countStream => _count.stream;
+
+  int get countValue => _count.value;
 
   @override
   void dispose() {
-
+    _count;
   }
 
 }
