@@ -1,3 +1,4 @@
+import 'package:board_buff/page1.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -53,6 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            ElevatedButton(
+              child: const Text("せんいぼたん"),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const Page1(),
+                  ),
+                );
+              },
             ),
           ],
         ),
