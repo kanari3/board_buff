@@ -2,7 +2,6 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Page1Bloc extends Bloc {
-
   // カウント
   final _count = BehaviorSubject<int>.seeded(0);
   Stream<int> get countStream => _count.stream;
@@ -26,5 +25,4 @@ class Page1Bloc extends Bloc {
     _count;
     err;
   }
-
 }

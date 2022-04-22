@@ -10,7 +10,6 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-
   late Page1Bloc bloc;
 
   @override
@@ -25,7 +24,6 @@ class _Page1State extends State<Page1> {
 
   void registerListener() {
     bloc.err.listen((value) async {
-
       if (value.isEmpty) {
         return;
       }
@@ -58,11 +56,11 @@ class _Page1State extends State<Page1> {
         title: const Text("Page1たいとる"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           bloc.increment();
         },
       ),
-      body: StreamBuilder<int>( // snapshotに型を反映
+      body: StreamBuilder<int>(
         stream: bloc.countStream,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return Text("すとりーむかうんと ${snapshot.data}");
