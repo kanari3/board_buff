@@ -19,6 +19,36 @@ class _Page1State extends State<Page1> {
     super.initState();
 
     bloc = BlocProvider.of<Page1Bloc>(context);
+
+    registerListener();
+  }
+
+  void registerListener() {
+    bloc.err.listen((value) async {
+
+      if (value.isEmpty) {
+        return;
+      }
+
+      return await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("えらー"),
+            content: Text(value),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  // もどる で とじる
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    });
   }
 
   @override
