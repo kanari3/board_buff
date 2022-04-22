@@ -1,6 +1,8 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:board_buff/page1.dart';
 import 'package:board_buff/page1_bloc.dart';
+import 'package:board_buff/page2.dart';
+import 'package:board_buff/page2_bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -58,13 +60,26 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             ElevatedButton(
-              child: const Text("せんいぼたん"),
+              child: const Text("すとりーむさんぷる"),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
                       creator: (context, _) => Page1Bloc(),
                       child: const Page1(),
+                    ),
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: const Text("つうしんさんぷる"),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      creator: (context, _) => Page2Bloc(),
+                      child: const Page2(),
                     ),
                   ),
                 );
