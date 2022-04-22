@@ -9,14 +9,22 @@ class Page1Bloc extends Bloc {
   // Sink<int> get countSink => _count.sink;
   // int get countValue => _count.value;
 
+  // エラー通知
+  final err = BehaviorSubject<String>.seeded('');
+
   void increment() {
     final temp = _count.value + 1;
     _count.add(temp);
+
+    if (_count.value >= 10) {
+      err.add('一桁を超えました');
+    }
   }
 
   @override
   void dispose() {
     _count;
+    err;
   }
 
 }
