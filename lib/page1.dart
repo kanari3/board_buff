@@ -14,20 +14,30 @@ class _Page1State extends State<Page1> {
   late Page1Bloc bloc;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // 1回だけ実行されます
+    super.initState();
 
     bloc = BlocProvider.of<Page1Bloc>(context);
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Page1たいとる"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+          bloc.increment();
         },
       ),
-      body: Text("かうんと： ${bloc.countValue}"),
+      body: StreamBuilder<int>( // snapshotに型を反映
+        stream: bloc.countStream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return Text("すとりーむかうんと ${snapshot.data}");
+        },
+      ),
     );
   }
 }
