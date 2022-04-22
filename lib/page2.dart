@@ -30,11 +30,12 @@ class _Page2State extends State<Page2> {
                   width: 150,
                   child: TextFormField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value) {},
+                    onChanged: bloc.addressInputAction.add,
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    bloc.search();
                   },
                   child: const Text('けんさく'),
                 ),
@@ -43,6 +44,12 @@ class _Page2State extends State<Page2> {
             Container(
               height: 50,
             ),
+            StreamBuilder<String>(
+              stream: bloc.addressStream,
+              builder: (context, snapshot) {
+                return Text('住所: ${snapshot.data}');
+              },
+            )
           ],
         ),
       ),
