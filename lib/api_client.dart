@@ -1,9 +1,19 @@
 import 'package:http/http.dart' as http;
 
 abstract class Client {
+  Future<http.Response> getAddressFromZip(String zipCode);
 }
 
 class ApiClient implements Client {
+  @override
+  Future<http.Response> getAddressFromZip(String zipCode) async {
+    const baseUrl = 'https://zipcloud.ibsnet.co.jp/api/search';
+    final params = <String, String>{
+      'zipcode': zipCode.toString(),
+      'limit': '1'
+    };
+    return await _get(baseUrl, params, false);
+  }
 
   Future<http.Response> _get(
     String url,
