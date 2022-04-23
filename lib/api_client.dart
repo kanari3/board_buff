@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:http/http.dart' as http;
 
 abstract class Client {
@@ -5,6 +7,9 @@ abstract class Client {
 }
 
 class ApiClient implements Client {
+
+  final _timeout = const Duration(seconds: 30);
+
   @override
   Future<http.Response> getAddressFromZip(String zipCode) async {
     const baseUrl = 'https://zipcloud.ibsnet.co.jp/api/search';
@@ -41,7 +46,7 @@ class ApiClient implements Client {
           .get(
             Uri.parse(requestUrl),
           )
-          .timeout(const Duration(seconds: 30));
+          .timeout(_timeout);
       print(
           'response: statusCode=${response.statusCode}, body=${response.body}');
 
@@ -49,6 +54,95 @@ class ApiClient implements Client {
     } catch (e) {
       rethrow;
     }
+  }
+
+
+  Future<http.Response> _post(String url, body, bool withToken) async {
+    try {
+      final client = http.Client();
+      final requestUrl = Uri.parse(url);
+      print('request url: $requestUrl');
+      final headers = await _getHeaders();
+      final response = await client
+          .post(
+        requestUrl,
+        headers: headers,
+        body: body,
+      )
+          .timeout(_timeout);
+
+      print('request body: $body');
+      print('response: statusCode=${response.statusCode}, body=${response.body}');
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<http.Response> _put(String url, body, bool withToken) async {
+    try {
+      final client = http.Client();
+      final requestUrl = Uri.parse(url);
+      print('request url: $requestUrl');
+      final headers = await _getHeaders();
+      final response = await client
+          .put(
+        requestUrl,
+        headers: headers,
+        body: body,
+      )
+          .timeout(_timeout);
+
+      print('request body: $body');
+      print('response: statusCode=${response.statusCode}, body=${response.body}');
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<http.Response> _delete(
+      String url,
+      Map<String, String?> params,
+      bool withToken, {
+        Map<String, List<dynamic>>? listParam,
+      }) async {
+    try {
+      final client = http.Client();
+      var requestUrl = url;
+      print('request url: $requestUrl');
+      if (params.keys.isNotEmpty) {
+        requestUrl = _addParamToUrl(url, params);
+        if (listParam != null) {
+          requestUrl = _addListParamToUrl(
+            requestUrl,
+            listParam.keys.first.toString(),
+            listParam.values.first,
+          );
+        }
+      }
+
+      final response = await client
+          .delete(
+        Uri.parse(requestUrl),
+      )
+          .timeout(_timeout);
+      print('response: statusCode=${response.statusCode}, body=${response.body}');
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, String>> _getHeaders() async {
+
+    final headers = {
+      'Content-type': 'application/json',
+    };
+    return headers;
   }
 
   static String _addListParamToUrl(
@@ -61,7 +155,7 @@ class ApiClient implements Client {
       // ignore: use_string_buffers
       result += '&$title=$item';
     }
-    // print(result.toString());
+    print(result.toString());
     return result;
   }
 
