@@ -1,7 +1,11 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:board_buff/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'api_client.dart';
+
 class Page2Bloc implements Bloc {
+  final _zipRepository = ZipRepository(client: ApiClient());
 
   // 住所
   final _address = BehaviorSubject<String>.seeded('');
@@ -12,8 +16,10 @@ class Page2Bloc implements Bloc {
   Sink<String> get addressInputAction => _input.sink;
 
   Future<void> _getAddressFromZip(String zip) async {
-    // TODO: 郵便番号から住所を取得して_addressに住所を入れる
-    _address.add("入力された郵便番号: ${zip}");
+    final result = await _zipRepository.getAddressFromZipCode(zip);
+    final displayString =
+        '${result.address1}${result.address2}${result.address3}';
+    _address.add(displayString);
   }
 
   Future<void> search() async {
