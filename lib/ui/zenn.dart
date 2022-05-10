@@ -2,6 +2,7 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:board_buff/model/bloc/zenn.dart';
 import 'package:board_buff/model/entity/article/article.dart';
 import 'package:flutter/material.dart';
+import 'detail.dart';
 
 class Zenn extends StatefulWidget {
   const Zenn({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _ZennState extends State<Zenn> {
                   itemCount: snapshot.data?.length,
                   itemBuilder: (context, index) {
                     final data = snapshot.data?[index];
-                    return Text('${data?.title}');
+                    return articleListTile(data);
                   },
                 );
               }
@@ -68,6 +69,25 @@ class _ZennState extends State<Zenn> {
             },
           )
         ],
+      ),
+    );
+  }
+
+  Widget articleListTile(Article? article) {
+    return GestureDetector(
+      child: Text('${article?.title}'),
+      onTap: () {
+        final url = 'https://zenn.dev/${article?.user?.username}/articles/${article?.slug}';
+        print('url: $url');
+        navigateToDetail(url);
+      },
+    );
+  }
+
+  void navigateToDetail(String url) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ZennDetailScreen(url),
       ),
     );
   }
