@@ -16,6 +16,7 @@ dependencies:
   rxdart:
   http:
   webview_flutter:
+  loadmore:
 
 dev_dependencies:
   flutter_test:

@@ -3,21 +3,47 @@ import 'package:board_buff/model/bloc/zenn.dart';
 import 'package:board_buff/model/entity/article/article.dart';
 import 'package:flutter/material.dart';
 import 'detail.dart';
+import 'package:loadmore/loadmore.dart';
 
-class Zenn extends StatefulWidget {
-  const Zenn({Key? key}) : super(key: key);
+class ZennList extends StatefulWidget {
+  const ZennList({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ZennState();
+  State<StatefulWidget> createState() => _ZennListState();
 }
 
-class _ZennState extends State<Zenn> {
+class _ZennListState extends State<ZennList> {
   late ZennBloc bloc;
 
   @override
   void initState() {
     super.initState();
     bloc = BlocProvider.of<ZennBloc>(context);
+    registerListener();
+  }
+
+  void registerListener() {
+    bloc.err.listen((value) async {
+      if (value.isEmpty) {
+        return;
+      }
+
+      return await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("エラー"),
+            content: Text(value),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    });
   }
 
   @override
@@ -59,13 +85,17 @@ class _ZennState extends State<Zenn> {
               stream: bloc.articlesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      final data = snapshot.data?[index];
-                      return articleListTile(data);
-                    },
+                  return LoadMore(
+                    textBuilder: DefaultLoadMoreTextBuilder.english,
+                    onLoadMore: _loadMore,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        final data = snapshot.data?[index];
+                        return articleListTile(data);
+                      },
+                    ),
                   );
                 }
                 return const Text('記事なし');
@@ -75,6 +105,13 @@ class _ZennState extends State<Zenn> {
         ],
       ),
     );
+  }
+
+  Future<bool> _loadMore() async {
+    print("onLoadMore");
+    await Future.delayed(const Duration(seconds: 0, milliseconds: 100));
+    await bloc.search();
+    return true;
   }
 
   Widget articleListTile(Article? article) {
@@ -91,11 +128,12 @@ class _ZennState extends State<Zenn> {
             ),
             Container(width: 10),
             Expanded(
-                child: Text(
-              '${article?.title}',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
-            )),
+              child: Text(
+                '${article?.title}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+              ),
+            ),
           ],
         ),
       ),

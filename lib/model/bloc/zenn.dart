@@ -6,6 +6,10 @@ import 'package:rxdart/rxdart.dart';
 
 class ZennBloc implements Bloc {
   final _zipRepository = ZennRepository(client: ApiClient());
+  var page = 1;
+
+  // エラー通知
+  final err = BehaviorSubject<String>.seeded('');
 
   // 記事
   final _articles = BehaviorSubject<List<Article>>.seeded([]);
@@ -16,8 +20,14 @@ class ZennBloc implements Bloc {
   Sink<String> get inputAction => _input.sink;
 
   Future<void> _getData(String query) async {
-    final result = await _zipRepository.getZenn(query);
-    _articles.add(result);
+    try {
+      final result = await _zipRepository.getZenn(page: page);
+      page++;
+      final temp = _articles.value + result.articles;
+      _articles.add(temp);
+    } catch (e) {
+      err.add(e.toString());
+    }
   }
 
   Future<void> search() async {

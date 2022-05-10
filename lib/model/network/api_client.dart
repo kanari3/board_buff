@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 abstract class Client {
   Future<http.Response> getAddressFromZip(String zipCode);
 
-  Future<http.Response> getZenn(String query);
+  Future<http.Response> getZenn({required int page});
 }
 
 class ApiClient implements Client {
@@ -167,8 +167,9 @@ class ApiClient implements Client {
   }
 
   @override
-  Future<http.Response> getZenn(String query) async {
-    const baseUrl = 'https://zenn.dev/api/articles?order=daily&topicname=flutter&count=10&page=1';
+  Future<http.Response> getZenn({required int page}) async {
+    final p = page.toString();
+    final baseUrl = 'https://zenn.dev/api/articles?order=daily&topicname=flutter&count=10&page=$p';
     final params = <String, String>{};
     return await _get(baseUrl, params, false);
   }
