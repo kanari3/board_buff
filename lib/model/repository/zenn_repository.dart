@@ -21,7 +21,7 @@ class ZennRepository implements ZennRepositoryInterface {
       final response = await _client.getZenn("");
       final jsonResponse = json.decode(response.body);
       final jsonArticles = jsonResponse['articles'] as List;
-      final articles = jsonArticles.whereType<Map<String, dynamic>>().map((e) => Article.fromJson(e)).toList();
+      final articles = jsonArticles.whereType<Map<String, dynamic>>().map(Article.fromJson).toList();
       return articles;
     } catch (e) {
       rethrow;

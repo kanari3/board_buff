@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:board_buff/model/entity/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,7 +17,7 @@ abstract class Article with _$Article {
     bool? published,
     int? commentsCount,
     int? likedCount,
-    int? bodyLetters_count,
+    int? bodyLettersCount,
     int? readingTime,
     String? articleType,
     String? emoji,
