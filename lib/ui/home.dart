@@ -1,7 +1,9 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:board_buff/model/bloc/page2_bloc.dart';
+import 'package:board_buff/model/bloc/zenn.dart';
 import 'package:board_buff/ui/page1.dart';
 import 'package:board_buff/ui/page2.dart';
+import 'package:board_buff/ui/zenn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +65,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (context) => BlocProvider(
                       creator: (context, _) => Page2Bloc(),
                       child: const Page2(),
+                    ),
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Zenn"),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      creator: (context, _) => ZennBloc(),
+                      child: const Zenn(),
                     ),
                   ),
                 );

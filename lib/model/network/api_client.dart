@@ -4,21 +4,12 @@ import 'package:http/http.dart' as http;
 
 abstract class Client {
   Future<http.Response> getAddressFromZip(String zipCode);
+
+  Future<http.Response> getZenn(String query);
 }
 
 class ApiClient implements Client {
-
   final _timeout = const Duration(seconds: 30);
-
-  @override
-  Future<http.Response> getAddressFromZip(String zipCode) async {
-    const baseUrl = 'https://zipcloud.ibsnet.co.jp/api/search';
-    final params = <String, String>{
-      'zipcode': zipCode.toString(),
-      'limit': '1'
-    };
-    return await _get(baseUrl, params, false);
-  }
 
   Future<http.Response> _get(
     String url,
@@ -166,5 +157,19 @@ class ApiClient implements Client {
     });
     final res = result.substring(0, result.length - 1);
     return res;
+  }
+
+  @override
+  Future<http.Response> getAddressFromZip(String zipCode) async {
+    const baseUrl = 'https://zipcloud.ibsnet.co.jp/api/search';
+    final params = <String, String>{'zipcode': zipCode.toString(), 'limit': '1'};
+    return await _get(baseUrl, params, false);
+  }
+
+  @override
+  Future<http.Response> getZenn(String query) async {
+    const baseUrl = 'https://zenn.dev/api/articles?order=daily&topicname=flutter&count=10&page=1';
+    final params = <String, String>{};
+    return await _get(baseUrl, params, false);
   }
 }
