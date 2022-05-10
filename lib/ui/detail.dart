@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class ZennDetailScreen extends StatefulWidget {
 }
 
 class ZennDetailScreenState extends State<ZennDetailScreen> {
-
   @override
   void initState() {
     super.initState();
