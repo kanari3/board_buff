@@ -1,5 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:board_buff/page1_bloc.dart';
+import 'package:board_buff/model/bloc/page1_bloc.dart';
 import 'package:flutter/material.dart';
 
 class Page1 extends StatefulWidget {
