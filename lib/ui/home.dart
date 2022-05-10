@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
                       creator: (context, _) => ZennBloc(),
-                      child: const Zenn(),
+                      child: const ZennList(),
                     ),
                   ),
                 );
