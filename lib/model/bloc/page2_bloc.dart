@@ -17,8 +17,7 @@ class Page2Bloc implements Bloc {
 
   Future<void> _getAddressFromZip(String zip) async {
     final result = await _zipRepository.getAddressFromZipCode(zip);
-    final displayString =
-        '${result.address1}${result.address2}${result.address3}';
+    final displayString = '${result.address1}${result.address2}${result.address3}';
     _address.add(displayString);
   }
 
