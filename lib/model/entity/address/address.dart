@@ -12,6 +12,5 @@ abstract class Address with _$Address {
   }) = _Address;
   Address._();
 
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
 }

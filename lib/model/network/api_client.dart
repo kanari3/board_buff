@@ -47,15 +47,13 @@ class ApiClient implements Client {
             Uri.parse(requestUrl),
           )
           .timeout(_timeout);
-      print(
-          'response: statusCode=${response.statusCode}, body=${response.body}');
+      print('response: statusCode=${response.statusCode}, body=${response.body}');
 
       return response;
     } catch (e) {
       rethrow;
     }
   }
-
 
   Future<http.Response> _post(String url, body, bool withToken) async {
     try {
@@ -65,10 +63,10 @@ class ApiClient implements Client {
       final headers = await _getHeaders();
       final response = await client
           .post(
-        requestUrl,
-        headers: headers,
-        body: body,
-      )
+            requestUrl,
+            headers: headers,
+            body: body,
+          )
           .timeout(_timeout);
 
       print('request body: $body');
@@ -88,10 +86,10 @@ class ApiClient implements Client {
       final headers = await _getHeaders();
       final response = await client
           .put(
-        requestUrl,
-        headers: headers,
-        body: body,
-      )
+            requestUrl,
+            headers: headers,
+            body: body,
+          )
           .timeout(_timeout);
 
       print('request body: $body');
@@ -104,11 +102,11 @@ class ApiClient implements Client {
   }
 
   Future<http.Response> _delete(
-      String url,
-      Map<String, String?> params,
-      bool withToken, {
-        Map<String, List<dynamic>>? listParam,
-      }) async {
+    String url,
+    Map<String, String?> params,
+    bool withToken, {
+    Map<String, List<dynamic>>? listParam,
+  }) async {
     try {
       final client = http.Client();
       var requestUrl = url;
@@ -126,8 +124,8 @@ class ApiClient implements Client {
 
       final response = await client
           .delete(
-        Uri.parse(requestUrl),
-      )
+            Uri.parse(requestUrl),
+          )
           .timeout(_timeout);
       print('response: statusCode=${response.statusCode}, body=${response.body}');
 
@@ -138,7 +136,6 @@ class ApiClient implements Client {
   }
 
   Future<Map<String, String>> _getHeaders() async {
-
     final headers = {
       'Content-type': 'application/json',
     };
@@ -159,8 +156,7 @@ class ApiClient implements Client {
     return result;
   }
 
-  static String _addParamToUrl(String base, Map<String, String?> params,
-      {bool allowEmpty = false}) {
+  static String _addParamToUrl(String base, Map<String, String?> params, {bool allowEmpty = false}) {
     var result = base;
     result += '?';
     params.forEach((key, value) {
