@@ -30,7 +30,7 @@ class _Page1State extends State<Page1> {
 
       return await showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return AlertDialog(
             title: const Text("えらー"),
             content: Text(value),
@@ -62,7 +62,7 @@ class _Page1State extends State<Page1> {
       ),
       body: StreamBuilder<int>(
         stream: bloc.countStream,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        builder: (context, snapshot) {
           return Text("すとりーむかうんと ${snapshot.data}");
         },
       ),

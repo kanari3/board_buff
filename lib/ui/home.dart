@@ -4,7 +4,6 @@ import 'package:board_buff/model/bloc/zenn.dart';
 import 'package:board_buff/ui/page1.dart';
 import 'package:board_buff/ui/page2.dart';
 import 'package:board_buff/ui/zenn.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/bloc/page1_bloc.dart';

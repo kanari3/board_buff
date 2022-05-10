@@ -22,7 +22,7 @@ class Page1Bloc extends Bloc {
 
   @override
   void dispose() {
-    _count;
-    err;
+    _count.close();
+    err.close();
   }
 }

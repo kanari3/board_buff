@@ -26,7 +26,7 @@ class ZennBloc implements Bloc {
 
   @override
   void dispose() {
-    _articles;
-    _input;
+    _articles.close();
+    _input.close();
   }
 }

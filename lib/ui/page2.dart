@@ -34,9 +34,7 @@ class _Page2State extends State<Page2> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    bloc.search();
-                  },
+                  onPressed: bloc.search,
                   child: const Text('けんさく'),
                 ),
               ],

@@ -27,7 +27,7 @@ class Page2Bloc implements Bloc {
 
   @override
   void dispose() {
-    _address;
-    _input;
+    _address.close();
+    _input.close();
   }
 }
