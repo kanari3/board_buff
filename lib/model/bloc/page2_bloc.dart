@@ -1,8 +1,8 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:board_buff/repository.dart';
+import 'package:board_buff/model/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'api_client.dart';
+import '../network/api_client.dart';
 
 class Page2Bloc implements Bloc {
   final _zipRepository = ZipRepository(client: ApiClient());

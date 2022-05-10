@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:board_buff/address.dart';
-import 'package:board_buff/api_client.dart';
+import 'package:board_buff/model/entity/address/address.dart';
+import 'package:board_buff/model/network/api_client.dart';
 
 abstract class ZipRepositoryInterface {
   Future<Address> getAddressFromZipCode(String zipCode);
