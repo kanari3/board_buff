@@ -67,7 +67,7 @@ class ZennDetailScreenState extends State<ZennDetailScreen> {
         final flag = snapshot.data!;
         return ElevatedButton(
           onPressed: () async {
-            flag ? delete() : save();
+            flag ? deleteDialog() : save();
           },
           child: Icon(
             Icons.star,
@@ -91,6 +91,31 @@ class ZennDetailScreenState extends State<ZennDetailScreen> {
       realm.add(article);
     });
     _isFavorite.add(true);
+  }
+
+  Future<void> deleteDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('確認'),
+          content: const Text('本当に削除しますか？'),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await delete();
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> delete() async {
