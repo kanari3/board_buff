@@ -138,17 +138,15 @@ class _ZennListState extends State<ZennList> {
         ),
       ),
       onTap: () {
-        final url = 'https://zenn.dev/${article?.user?.username}/articles/${article?.slug}';
-        print('url: $url');
-        navigateToDetail(url);
+        navigateToDetail(article);
       },
     );
   }
 
-  void navigateToDetail(String url) {
+  void navigateToDetail(Article? article) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ZennDetailScreen(url),
+        builder: (context) => ZennDetailScreen(article),
       ),
     );
   }
