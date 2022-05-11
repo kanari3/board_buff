@@ -8,4 +8,5 @@ class _ArticleModel {
   late String? title;
   late String? slug;
   late String? username;
+  late String? emoji;
 }

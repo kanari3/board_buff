@@ -83,6 +83,7 @@ class ZennDetailScreenState extends State<ZennDetailScreen> {
     final item = widget.article;
     final article = ArticleModel(
       id: item?.id,
+      emoji: item?.emoji,
       title: item?.title,
       slug: item?.slug,
       username: item?.user?.username,

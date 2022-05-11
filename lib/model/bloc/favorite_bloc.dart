@@ -25,6 +25,7 @@ class FavoriteBloc implements Bloc {
       favorites.map((e) {
         final article = Article(
           id: e.id,
+          emoji: e.emoji,
           title: e.title,
           slug: e.slug,
           user: User(username: e.username),
