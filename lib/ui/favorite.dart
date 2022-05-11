@@ -1,27 +1,23 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:board_buff/model/bloc/favorite_bloc.dart';
-import 'package:board_buff/model/bloc/zenn.dart';
 import 'package:board_buff/model/entity/article/article.dart';
 import 'package:flutter/material.dart';
 import 'detail.dart';
-import 'package:loadmore/loadmore.dart';
 
-import 'favorite.dart';
-
-class ZennList extends StatefulWidget {
-  const ZennList({Key? key}) : super(key: key);
+class Favorite extends StatefulWidget {
+  const Favorite({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ZennListState();
+  State<StatefulWidget> createState() => _FavoriteState();
 }
 
-class _ZennListState extends State<ZennList> {
-  late ZennBloc bloc;
+class _FavoriteState extends State<Favorite> {
+  late FavoriteBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = BlocProvider.of<ZennBloc>(context);
+    bloc = BlocProvider.of<FavoriteBloc>(context);
     registerListener();
   }
 
@@ -53,55 +49,25 @@ class _ZennListState extends State<ZennList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Zenn記事検索'),
-        actions: [
-          favoriteButton(),
-        ],
+        title: const Text('Zennブックマーク一覧'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('キーワード'),
-                Expanded(
-                    child: SizedBox(
-                  width: 150,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    onChanged: bloc.inputAction.add,
-                  ),
-                )),
-                ElevatedButton(
-                  onPressed: () {
-                    bloc.search();
-                  },
-                  child: const Text('Search'),
-                ),
-              ],
-            ),
-          ),
           Container(height: 10),
           Expanded(
             child: StreamBuilder<List<Article>>(
               stream: bloc.articlesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return LoadMore(
-                    textBuilder: DefaultLoadMoreTextBuilder.english,
-                    onLoadMore: _loadMore,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        final data = snapshot.data?[index];
-                        return articleListTile(data);
-                      },
-                    ),
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      final data = snapshot.data?[index];
+                      return articleListTile(data);
+                    },
                   );
                 }
                 return const Text('記事なし');
@@ -111,13 +77,6 @@ class _ZennListState extends State<ZennList> {
         ],
       ),
     );
-  }
-
-  Future<bool> _loadMore() async {
-    print("onLoadMore");
-    await Future.delayed(const Duration(seconds: 0, milliseconds: 100));
-    await bloc.search();
-    return true;
   }
 
   Widget articleListTile(Article? article) {
@@ -146,25 +105,6 @@ class _ZennListState extends State<ZennList> {
       onTap: () {
         navigateToDetail(article);
       },
-    );
-  }
-
-  Widget favoriteButton() {
-    return ElevatedButton(
-      onPressed: () async {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => BlocProvider(
-              creator: (context, _) => FavoriteBloc(),
-              child: const Favorite(),
-            ),
-          ),
-        );
-      },
-      child: const Icon(
-        Icons.star,
-        color: Colors.white,
-      ),
     );
   }
 
