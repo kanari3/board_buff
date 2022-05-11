@@ -29,7 +29,7 @@ class ZennDetailScreenState extends State<ZennDetailScreen> {
       WebView.platform = AndroidWebView();
     }
 
-generateUrl();
+    generateUrl();
     getFavoriteStatus();
   }
 
@@ -40,8 +40,8 @@ generateUrl();
   }
 
   getFavoriteStatus() {
-    final cars = realm.all<ArticleModel>().query("id == '${widget.article?.id}'");
-    _isFavorite.add(cars.isNotEmpty);
+    final favorites = realm.all<ArticleModel>().query("id == '${widget.article?.id}'");
+    _isFavorite.add(favorites.isNotEmpty);
   }
 
   @override
