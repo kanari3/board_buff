@@ -38,6 +38,10 @@ class FavoriteBloc implements Bloc {
     }
   }
 
+  Future<void> reload() async {
+    await _getData();
+  }
+
   @override
   void dispose() {
     _articles.close();

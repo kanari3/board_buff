@@ -50,6 +50,9 @@ class _FavoriteState extends State<Favorite> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zennブックマーク一覧'),
+        actions: [
+          reloadButton(),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -105,6 +108,13 @@ class _FavoriteState extends State<Favorite> {
       onTap: () {
         navigateToDetail(article);
       },
+    );
+  }
+
+  Widget reloadButton() {
+    return ElevatedButton(
+      onPressed: bloc.reload,
+      child: const Icon(Icons.refresh),
     );
   }
 
