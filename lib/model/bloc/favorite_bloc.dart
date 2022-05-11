@@ -25,6 +25,7 @@ class FavoriteBloc implements Bloc {
       favorites.map((e) {
         final article = Article(
           id: e.id,
+          emoji: e.emoji,
           title: e.title,
           slug: e.slug,
           user: User(username: e.username),
@@ -35,6 +36,10 @@ class FavoriteBloc implements Bloc {
     } catch (e) {
       err.add(e.toString());
     }
+  }
+
+  Future<void> reload() async {
+    await _getData();
   }
 
   @override
