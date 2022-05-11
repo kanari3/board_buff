@@ -17,6 +17,7 @@ dependencies:
   http:
   webview_flutter:
   loadmore:
+  realm: ^0.2.1+alpha
 
 dev_dependencies:
   flutter_test:
