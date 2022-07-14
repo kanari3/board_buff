@@ -1,6 +1,7 @@
 # board_buff ignore
-**.g.dart
-**.freezed.dart
+*.g.dart
+*.freezed.dart
+.fvm/flutter_sdk
 
 # Miscellaneous
 *.class
